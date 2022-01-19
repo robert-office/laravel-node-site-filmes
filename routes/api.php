@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 /// auth
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 /// rotas protegidas por token de usuario
 Route::group(['middleware' => ['auth:sanctum']], function () {
