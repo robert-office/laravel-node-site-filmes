@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WatchlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     /// resourses
+    /// user
+    Route::post('/user/update', [UserController::class, 'update']);
+    Route::post('/user/img/update', [UserController::class, 'updateImgUser']);
+
     /// favorites
     Route::get('/favorites/show', [FavoritesController::class, 'show']);
     Route::get('/favorites/delete/{id}', [FavoritesController::class, 'delete']);
