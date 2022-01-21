@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Error;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -99,12 +101,27 @@ class UserController extends Controller
         $imagem = $request->file('imagem');
         
         if ( $imagem ) {
+            $user = User::where('id', $idUser)->first();
+            $fullImg_path = $user['path_img'];
+            $pathExploded = explode('http://localhost:8000', $fullImg_path);
+            $oldPath = public_path($pathExploded[1]);
+
+            /// apaga  a img antiga
+            if( $oldPath && $fullImg_path !== "" ) {
+                try { 
+                    $img_deleted = unlink($oldPath);
+                } catch( \Exception $e ) {
+                    return response(['erro' => $e->getMessage()], 401);
+                }
+            }
+
             $path = $imagem[0]->store('perfil', 'public');
             
             $user = User::where('id', $idUser)->update([
                 'path_img' =>  asset( Storage::url( $path ) )
             ]);
             
+            /// faz o selcet novamente para mandar as infos att
             $user = User::where('id', $idUser)->first();
 
             if( $user ) {
