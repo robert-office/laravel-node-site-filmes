@@ -69,22 +69,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // valida os campos
         $filds = $request->validate([
-            'name' => 'string',
-            'email' => 'string|unique:users,email',
+            'name' => 'string|nullable',
+            'descricao' => 'string|nullable'
         ]);
 
         $idUser = Auth::id();
 
         $user = User::where('id', $idUser)->update([
             'name' => $filds['name'],
-            'email' => $filds['email']
+            'descricao' => $filds['descricao']
         ]);
 
-        return response($user, 200);
+        $user = User::where('id', $idUser)->first();
+
+        if( $user ) {
+            return response($user);
+        }
     }
 
 
