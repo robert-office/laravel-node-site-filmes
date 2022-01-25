@@ -106,7 +106,7 @@ class UserController extends Controller
             $fullImg_path = $user['path_img'];
             $pathExploded = explode('https://laravel-node-filme.herokuapp.com', $fullImg_path);
 
-            if( $pathExploded[1] != "" ) {
+            if( $pathExploded[1] ) {
                 $oldPath = public_path($pathExploded[1]);
             }
 
