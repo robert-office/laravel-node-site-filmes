@@ -103,7 +103,7 @@ class UserController extends Controller
         if ( $imagem ) {
             $user = User::where('id', $idUser)->first();
             $fullImg_path = $user['path_img'];
-            $pathExploded = explode('http://localhost:8000', $fullImg_path);
+            $pathExploded = explode('https://laravel-node-filme.herokuapp.com', $fullImg_path);
             $oldPath = public_path($pathExploded[1]);
 
             /// apaga  a img antiga
