@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Error;
 use Facade\FlareClient\Stacktrace\File;
+use Hamcrest\Arrays\IsArray;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -104,7 +105,10 @@ class UserController extends Controller
             $user = User::where('id', $idUser)->first();
             $fullImg_path = $user['path_img'];
             $pathExploded = explode('https://laravel-node-filme.herokuapp.com', $fullImg_path);
-            $oldPath = public_path($pathExploded[1]);
+
+            if( $pathExploded && is_array($pathExploded) ) {
+                $oldPath = public_path($pathExploded[1]);
+            }
 
             /// apaga  a img antiga
             if( $oldPath && $fullImg_path !== "" ) {
