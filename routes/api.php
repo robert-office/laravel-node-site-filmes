@@ -3,6 +3,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WatchlistController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/watchlist/delete/{id}', [WatchlistController::class, 'delete']);
     Route::post('/watchlist/store', [WatchlistController::class, 'store']);
     Route::post('/watchlist/check', [WatchlistController::class, 'check']);
+
+    /// history
+    Route::post('/histoy/add', [HistoryController::class, 'add']);
+    Route::get('/histoy/show', [HistoryController::class, 'show']);
 
     /// auth
     Route::post('/logout', [AuthController::class, 'logout']);
