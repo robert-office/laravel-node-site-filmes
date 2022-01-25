@@ -108,7 +108,7 @@ class UserController extends Controller
 
             return response(['path' => $pathExploded]);
 
-            if( $pathExploded && is_array($pathExploded) ) {
+            if( $pathExploded[1] != "" ) {
                 $oldPath = public_path($pathExploded[1]);
             }
 
