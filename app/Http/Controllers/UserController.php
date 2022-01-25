@@ -108,14 +108,14 @@ class UserController extends Controller
 
             if( array_key_exists(1, $pathExploded) ) {
                 $oldPath = public_path($pathExploded[1]);
-            }
 
-            /// apaga  a img antiga
-            if( $oldPath && $fullImg_path !== "" ) {
-                try { 
-                    $img_deleted = unlink($oldPath);
-                } catch( \Exception $e ) {
-                    return response(['erro' => $e->getMessage()], 401);
+                /// apaga  a img antiga
+                if( $oldPath && $fullImg_path !== "" ) {
+                    try { 
+                        $img_deleted = unlink($oldPath);
+                    } catch( \Exception $e ) {
+                        return response(['erro' => $e->getMessage()], 401);
+                    }
                 }
             }
 
